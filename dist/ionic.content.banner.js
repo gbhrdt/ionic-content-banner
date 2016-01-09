@@ -115,12 +115,13 @@ angular.module('jett.ionic.content.banner', ['ionic']);
               type: 'info',
               $deregisterBackButton: angular.noop,
               closeOnStateChange: true,
-              autoClose: null
+              autoClose: null,
+              clickHandler: angular.noop
             }, opts);
 
             // Compile the template
             var classes = 'content-banner ' + scope.type + ' content-banner-transition-' + scope.transition;
-            var element = scope.element = $compile('<ion-content-banner class="' + classes + '"></ion-content-banner>')(scope);
+            var element = scope.element = $compile('<ion-content-banner class="' + classes + '" ng-click="clickHandler()"></ion-content-banner>')(scope);
             var body = $document[0].body;
 
             var stateChangeListenDone = scope.closeOnStateChange ?
