@@ -79,6 +79,12 @@ angular.module('jett.ionic.content.banner', ['ionic']);
               return modal;
             }
 
+            // try nav views first
+            var navView = body.querySelectorAll('body > ion-nav-view');
+            if (navView.length === 1) {
+              return navView[0];
+            }
+
             // get the candidate active views
             var views = body.querySelectorAll('ion-view[nav-view="active"]');
 
@@ -152,11 +158,8 @@ angular.module('jett.ionic.content.banner', ['ionic']);
                 return;
               }
 
-              var scrollContents = getActiveView(body).querySelectorAll('.scroll-content')
-              var activeScrollContent = Array.prototype.slice.call(scrollContents).filter(function (content) {
-                return isActiveView(content)
-              })[0]
-              activeScrollContent.parentNode.appendChild(element[0])
+              var activeView = getActiveView(body);
+              activeView.appendChild(element[0]);
 
               ionic.requestAnimationFrame(function () {
                 $timeout(function () {
